@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -9,59 +8,108 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
-
 class _LoginScreenState extends State<LoginScreen> {
-//crear variable para mostrar u ocultar la contraseña
   bool _obscureText = true;
+
+  // crear el cerebro de la animacion
+  StateMachineController? _controller;
+  //SMI: State Machine Input
+  SMIBool? _isChecking;
+  SMIBool? _isHandsUp;
+  SMITrigger? _trigSuccess;
+  SMITrigger? _trigFail;
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;//obtenemos el tamaño de la pantalla para ajustar la animación y los campos de texto
+    final Size size = MediaQuery.of(context).size;
+
     return Scaffold(
+      //Evita que se quite espacio del nudge
       body: SafeArea(
-        child: Padding( //agregamos un padding para que la animación y los campos de texto no estén pegados a los bordes de la pantalla
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),//padding horizontal de 20 para que la animación y los campos de texto no estén pegados a los bordes de la pantalla
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
             children: [
-              Expanded(
-                child: RiveAnimation.asset('animated_login_bear.riv')),//agregamos la animación de Rive en la parte superior de la pantalla
-              const SizedBox(height: 10), //separación entre la animación y el campo de email
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Email',
-                  prefixIcon: const Icon(Icons.email),//icono de email para el campo de email
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12) //borde redondeado para el campo de email
-                  )
+              SizedBox(
+                width: size.width,
+                height: 200,
+                child: RiveAnimation.asset(
+                  'assets/animated_login_bear.riv',
+                  stateMachines: const ['Login Machine'],
+                  //Al iniciar la animacion
+                  onInit: (artboard) {
+                    _controller = StateMachineController.fromArtboard(
+                      artboard,
+                      'Login Machine',
+                    );
+
+                    //verifica que inicio bien
+                    if (_controller == null) return;
+                    // agrega el controlador al tablero/escenario
+                    artboard.addController(_controller!);
+                    _isChecking = _controller!.findSMI('isChecking') as SMIBool?;
+                    _isHandsUp = _controller!.findSMI('isHandsUp') as SMIBool?;
+                    _trigSuccess = _controller!.findSMI('trigSuccess') as SMITrigger?;
+                    _trigFail = _controller!.findSMI('trigFail') as SMITrigger?;
+                  },
+                  fit: BoxFit.contain,
                 ),
               ),
-              const SizedBox(height: 10), //separación entre el campo de email y el campo de password
+              const SizedBox(height: 24),
               TextField(
-                obscureText: _obscureText, //ocultamos la contraseña por defecto  
+                onChanged: (value) {
+                  if (_isHandsUp != null) {
+                    //No tapes los ojos al ver email
+                    _isHandsUp!.change(false);
+                  
+                  }
+                  //Si isChecking no es nulo
+                  if (_isChecking == null) return;
+                  // activar el modo chismoso
+                  _isChecking!.change(true);
+
+                },
+                decoration: InputDecoration(
+                  hintText: 'Email',
+                  prefixIcon: const Icon(Icons.email),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              TextField(
+                obscureText: _obscureText,
+                onChanged: (value) {
+                  if (_isChecking != null) {
+                    _isChecking!.change(false);
+                  }
+                  if (_isHandsUp != null) {
+                    _isHandsUp!.change(true);
+                  }
+                },
                 decoration: InputDecoration(
                   hintText: 'Password',
-                  prefixIcon: const Icon(Icons.lock),//icono de candado para el campo de password
+                  prefixIcon: const Icon(Icons.lock),
                   suffixIcon: IconButton(
-                    //if ternario
                     icon: Icon(
-                      _obscureText ? Icons.visibility : Icons.visibility_off, //cambiamos el icono de ojo dependiendo de si la contraseña está oculta o no
+                      _obscureText ? Icons.visibility : Icons.visibility_off,
                     ),
                     onPressed: () {
-                      //refresca el icono
                       setState(() {
                         _obscureText = !_obscureText;
                       });
                     },
-                  ), 
+                  ),
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12)//borde redondeado para el campo de password
-                  )
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 ),
               ),
-              const SizedBox(height: 10), //separación entre el campo de password y el botón de login
-              ]
+              const SizedBox(height: 16),
+            ],
           ),
-        )
+        ),
       ),
     );
   }
