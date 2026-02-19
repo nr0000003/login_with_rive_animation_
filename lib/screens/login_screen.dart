@@ -19,6 +19,26 @@ class _LoginScreenState extends State<LoginScreen> {
   SMITrigger? _trigSuccess;
   SMITrigger? _trigFail;
 
+  final _emailFocusNode = FocusNode();
+  final _passwordFocusNode = FocusNode();
+
+  // Los Oyentes/Chismosos
+  @override
+  void initState() {
+    super.initState();
+    _emailFocusNode.addListener( () {
+      if (_emailFocusNode.hasFocus) {
+        if (_isHandsUp !=null){
+          _isHandsUp?.change(false);
+
+        }
+      }
+    });
+    _passwordFocusNode.addListener( () {
+      _isHandsUp?.change(_passwordFocusNode.hasFocus);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -57,10 +77,11 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 24),
               TextField(
+                focusNode: _emailFocusNode,
                 onChanged: (value) {
                   if (_isHandsUp != null) {
                     //No tapes los ojos al ver email
-                    _isHandsUp!.change(false);
+                   //_isHandsUp!.change(false);
                   
                   }
                   //Si isChecking no es nulo
@@ -79,10 +100,11 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 12),
               TextField(
+                focusNode: _emailFocusNode,
                 obscureText: _obscureText,
                 onChanged: (value) {
                   if (_isChecking != null) {
-                    _isChecking!.change(false);
+                    //_isChecking!.change(false);
                   }
                   if (_isHandsUp != null) {
                     _isHandsUp!.change(true);
@@ -113,4 +135,10 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-}
+    @override
+    void dispose() {
+      _emailFocusNode.dispose();
+      _passwordFocusNode.dispose();
+      super.dispose();
+    }
+  }
