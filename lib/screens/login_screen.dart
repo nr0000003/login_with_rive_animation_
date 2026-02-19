@@ -9,9 +9,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  //control para mostrar u ocultar la contraseña
   bool _obscureText = true;
-
-  // crear el cerebro de la animacion
+  
+  //Crear el cerebrro de la animacion 
   StateMachineController? _controller;
   //SMI: State Machine Input
   SMIBool? _isChecking;
@@ -19,32 +20,34 @@ class _LoginScreenState extends State<LoginScreen> {
   SMITrigger? _trigSuccess;
   SMITrigger? _trigFail;
 
+ //1))Crear Variables para Focusmode
   final _emailFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
 
-  // Los Oyentes/Chismosos
+  //2)) Listeners ()
   @override
   void initState() {
     super.initState();
-    _emailFocusNode.addListener( () {
+    _emailFocusNode.addListener(() {
       if (_emailFocusNode.hasFocus) {
-        if (_isHandsUp !=null){
-          _isHandsUp?.change(false);
-
+        //No tapes los ojos al ver email
+        if (_isHandsUp != null) {
+          _isHandsUp!.change(false);
         }
       }
     });
-    _passwordFocusNode.addListener( () {
-      _isHandsUp?.change(_passwordFocusNode.hasFocus);
-    });
-  }
+_passwordFocusNode.addListener(() {
+  // manos arriba en password
+  _isHandsUp?.change(_passwordFocusNode.hasFocus);
+});
+}
 
   @override
   Widget build(BuildContext context) {
+    //para obtener el tamaño de la pantalla y usarlo para ajustar el diseño
     final Size size = MediaQuery.of(context).size;
-
+ 
     return Scaffold(
-      //Evita que se quite espacio del nudge
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -52,73 +55,77 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               SizedBox(
                 width: size.width,
-                height: 200,
-                child: RiveAnimation.asset(
-                  'assets/animated_login_bear.riv',
-                  stateMachines: const ['Login Machine'],
-                  //Al iniciar la animacion
-                  onInit: (artboard) {
-                    _controller = StateMachineController.fromArtboard(
-                      artboard,
-                      'Login Machine',
-                    );
+                height:250,
+              child: RiveAnimation.asset('assets/animated_login_bear.riv', 
+              stateMachines: ['Login Machine'],
+              //Al iniciar la animacion
+              onInit: (artboard) {
+                _controller = StateMachineController.fromArtboard(artboard, 'Login Machine');
+                //Verifica que inicio bien
+                if(_controller == null) return;
+                //Agrega el controlador al tablero/escenario
+                artboard.addController(_controller!);
+                //Vincular variables
+                _isChecking = _controller!.findSMI('isChecking');
+                _isHandsUp = _controller!.findSMI('isHandsUp');
+                _trigSuccess = _controller!.findSMI('trigSuccess');
+                _trigFail = _controller!.findSMI('trigFail');
 
-                    //verifica que inicio bien
-                    if (_controller == null) return;
-                    // agrega el controlador al tablero/escenario
-                    artboard.addController(_controller!);
-                    _isChecking = _controller!.findSMI('isChecking') as SMIBool?;
-                    _isHandsUp = _controller!.findSMI('isHandsUp') as SMIBool?;
-                    _trigSuccess = _controller!.findSMI('trigSuccess') as SMITrigger?;
-                    _trigFail = _controller!.findSMI('trigFail') as SMITrigger?;
-                  },
-                  fit: BoxFit.contain,
-                ),
+              }
+              
+              )
               ),
-              const SizedBox(height: 24),
+              //Para separacion
+              const SizedBox(height: 10),
               TextField(
+                //3)asignar FocusNode al TextField
                 focusNode: _emailFocusNode,
                 onChanged: (value) {
                   if (_isHandsUp != null) {
                     //No tapes los ojos al ver email
-                   //_isHandsUp!.change(false);
-                  
+                    //_isHandsUp!.change(false);
                   }
-                  //Si isChecking no es nulo
                   if (_isChecking == null) return;
-                  // activar el modo chismoso
+                  //Activa  el modo chisme
                   _isChecking!.change(true);
-
                 },
+                //Para mostrar un tipo de tecleado
+                keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: 'Email',
-                  prefixIcon: const Icon(Icons.email),
+                  prefixIcon: Icon(Icons.email),
                   border: OutlineInputBorder(
+                    //Para redondear los bordes del campo de texto
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 10),
               TextField(
-                focusNode: _emailFocusNode,
-                obscureText: _obscureText,
+                //3)asignar FocusNode al TextField
+                focusNode: _passwordFocusNode,
                 onChanged: (value) {
-                  if (_isChecking != null) {
-                    //_isChecking!.change(false);
-                  }
                   if (_isHandsUp != null) {
-                    _isHandsUp!.change(true);
+                    //No modo chisme
+                    _isChecking!.change(false);
                   }
+                  if (_isHandsUp == null) return;
+                  //Arriba las manos
+                  //_isHandsUp!.change(true);
                 },
+
+                obscureText: _obscureText,
                 decoration: InputDecoration(
                   hintText: 'Password',
-                  prefixIcon: const Icon(Icons.lock),
+                  prefixIcon: const Icon(Icons.lock),//Cerrado o Seguro
                   suffixIcon: IconButton(
+                    //if terniario
                     icon: Icon(
-                      _obscureText ? Icons.visibility : Icons.visibility_off,
-                    ),
+                      _obscureText ? Icons.visibility : Icons.visibility_off),
                     onPressed: () {
+                      //Refresca el widget para mostrar u ocultar la contraseña
                       setState(() {
+                        //Cambiar el estado de _obscureText para mostrar u ocultar la contraseña
                         _obscureText = !_obscureText;
                       });
                     },
@@ -127,18 +134,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-              ),
-              const SizedBox(height: 16),
+              )
             ],
           ),
         ),
       ),
     );
   }
-    @override
-    void dispose() {
-      _emailFocusNode.dispose();
-      _passwordFocusNode.dispose();
-      super.dispose();
-    }
+  //1.4 liberarr memoria/recursos al salir de la pantalla
+  @override
+  void dispose() {
+    //4) Liberar los FocusNode para evitar fugas de memoria
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    super.dispose();
   }
+}
