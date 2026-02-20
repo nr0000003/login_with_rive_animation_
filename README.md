@@ -44,6 +44,15 @@ State Machines make animations feel alive and responsive.
 💻 Dart  
 
 ---
+## 📂 Project Structure (lib)
+
+lib/
+│── main.dart
+│── login_screen.dart
+│── widgets/
+│    └── custom_text_field.dart
+│── controllers/
+│    └── rive_controller.dart
 
 ## 🎥 Demo
 
@@ -54,17 +63,17 @@ State Machines make animations feel alive and responsive.
 ## 🎓 Academic Information
 
 📚 **Course:** **[GRAFICACION]**  
-👨‍🏫 **TEACHER:** **[	RODRIGO FIDEL GAXIOLA SOSA]**
+👨‍🏫 **TEACHER:** **[RODRIGO FIDEL GAXIOLA SOSA]**
 
 ---
 
 ## 🎭 Animation Credits
 
 Animation created by:  
-👉 **[ANIMATION CREATOR NAME / STUDIO]**
+👉 **[JcToon / RIVE]**
 
 Original animation source:  
-🔗 **[RIVE ANIMATION LINK]**
+🔗 **[(https://rive.app/marketplace/2244-7248-animated-login-character/)]**
 
 ---
 │    └── custom_text_field.dart
