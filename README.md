@@ -1,6 +1,6 @@
-# 🎭 Bear Login Animation with Rive
+# 🐻 Bear Login Animation with Rive
 
-An Bear interative login interface developed using Flutter and Rive animations.  
+An interative login interface developed using Flutter and Rive animation.  
 This project demonstrates how to integrate a State Machine animation to enhance user interaction and visual feedback.
 
 ---
@@ -8,10 +8,11 @@ This project demonstrates how to integrate a State Machine animation to enhance 
 ## 🚀 Features
 
 ✨ Interactive character animation  
-✨ Real-time visual feedback  
-✨ State Machine integration  
-✨ Responsive UI design  
-✨ Password visibility toggle  
+🎯 Real-time visual feedback  
+🧠 State Machine integration  
+📱 Responsive UI design  
+👁️ Password visibility toggle  
+🔐 Secure login interaction  
 
 ---
 
@@ -45,7 +46,7 @@ State Machines make animations feel alive and responsive.
 
 ---
 ## 📂 Project Structure (lib)
-
+```
 lib/
 │── main.dart
 │── login_screen.dart
@@ -53,7 +54,7 @@ lib/
 │    └── custom_text_field.dart
 │── controllers/
 │    └── rive_controller.dart
-
+```
 ## 🎥 Demo:
 
 ![GIF DE PRUEBA](demo.gif)
@@ -61,18 +62,25 @@ lib/
 
 ## 🎓 Academic Information
 
-📚 **Course:** **[GRAFICACION]**  
-👨‍🏫 **TEACHER:** **[RODRIGO FIDEL GAXIOLA SOSA]**
+📚 Course:  [GRAFICACION]  
+👨‍🏫 TEACHER:  [RODRIGO FIDEL GAXIOLA SOSA]
+
 
 ---
 
 ## 🎭 Animation Credits
 
 Animation created by:  
-👉 **[JcToon / RIVE]**
+👉 [JcToon / RIVE]
 
 Original animation source:  
-🔗 **[(https://rive.app/marketplace/2244-7248-animated-login-character/)]**
+🔗 (https://rive.app/marketplace/2244-7248-animated-login-character/)
 
----
-│    └── custom_text_field.dart
+🙏Thanks for ReadMe
+
+
+
+
+![BowingThankYouGIF (2)](https://github.com/user-attachments/assets/9f336a5b-9c23-416c-9fbe-b7bb6ff49113)
+
+
