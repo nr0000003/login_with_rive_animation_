@@ -1,6 +1,6 @@
-# 🎭 Interactive Login Animation with Rive
+# 🎭 Bear Login Animation with Rive
 
-An interactive login interface developed using Flutter and Rive animations.  
+An Bear interative login interface developed using Flutter and Rive animations.  
 This project demonstrates how to integrate a State Machine animation to enhance user interaction and visual feedback.
 
 ---
@@ -54,10 +54,9 @@ lib/
 │── controllers/
 │    └── rive_controller.dart
 
-## 🎥 Demo
+## 🎥 Demo:
 
-![Demo GIF](assets/demo.gif)
-
+![GIF DE PRUEBA](demo.gif)
 ---
 
 ## 🎓 Academic Information
