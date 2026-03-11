@@ -56,9 +56,11 @@ lib/
 │    └── rive_controller.dart
 ```
 ## 🎥 Demo:
+## Demo
 
-![GIF DE PRUEBA](demo.gif)
-![GIF DE PRUEBA](demo 2.gif)
+![Login Animation](assets/demo1.gif)
+
+![Password Animation](assets/demo2.gif)
 ---
 
 ## 🎓 Academic Information
