@@ -60,6 +60,7 @@ lib/
 ![Login Animation](https://github.com/nr0000003/login_with_rive_animation_/blob/8b13e1bfd8c47a584804d124c66855d3d23d8d6e/demo.gif)
 
 
+2 Demo gif 🎥
 ![Password Animation](https://github.com/nr0000003/login_with_rive_animation_/blob/e96b0c86fce2e871d6edccbc80032d642ee67987/demo2.gif)
 
 ---
