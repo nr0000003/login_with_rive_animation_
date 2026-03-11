@@ -62,26 +62,6 @@ lib/
 ```
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ```
 
 ![Password Animation](https://github.com/nr0000003/login_with_rive_animation_/blob/e96b0c86fce2e871d6edccbc80032d642ee67987/demo2.gif)
