@@ -55,8 +55,7 @@ lib/
 │── controllers/
 │    └── rive_controller.dart
 ```
-## 🎥 Demo:
-## Demo
+## 🎥 Demo
 
 ![Login Animation](assets/demo1.gif)
 
