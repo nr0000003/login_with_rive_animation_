@@ -59,7 +59,7 @@ lib/
 
 ![GIF DE PRUEBA](demo.gif)
 
-![GIF DE PRUEBA](demo 2.gif)
+![GIF DE PRUEBA](demo2.gif)
 ---
 
 ## 🎓 Academic Information
